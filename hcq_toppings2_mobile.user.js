@@ -5,7 +5,7 @@
 // @description  Quest scanner + auto-sell — wersja mobile (Android/Kiwi)
 // @match        https://herocore.quest/*
 // @grant        none
-// @run-at       document-start
+// @run-at       document-idle
 // ==/UserScript==
 
 (function () {
@@ -299,15 +299,16 @@
             #hcqm-fab {
                 position: fixed; top: 60px; left: 10px;
                 z-index: 2147483647;
-                width: 48px; height: 48px;
+                width: 56px; height: 56px;
                 background: #3fb950; border-radius: 50%;
                 display: flex; align-items: center; justify-content: center;
-                font-size: 22px; cursor: pointer; font-weight: bold;
+                font-size: 24px; cursor: pointer; font-weight: bold;
                 box-shadow: 0 3px 14px #0009;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: transparent;
                 user-select: none;
-                border: 2px solid #2ea040;
+                border: 3px solid #2ea040;
+                pointer-events: all;
             }
             #hcqm-fab.has-data::after {
                 content: '';
@@ -317,18 +318,20 @@
                 box-shadow: 0 0 6px #58a6ff99;
             }
             #hcqm-panel {
-                position: fixed; top: 10px; left: 10px;
-                width: calc(100vw - 20px);
-                max-width: 480px;
-                max-height: calc(100vh - 20px);
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
                 z-index: 2147483646;
                 background: #0d1117;
-                border: 1px solid #30363d;
-                border-radius: 14px;
-                display: none; flex-direction: column;
+                border: none;
+                border-radius: 0;
+                display: none;
+                flex-direction: column;
                 font-family: Consolas,"Courier New",monospace;
                 font-size: 13px;
-                box-shadow: 0 8px 36px #000c;
+                box-shadow: none;
                 overflow: hidden;
             }
             #hcqm-panel.open { display: flex; }
@@ -336,16 +339,17 @@
             /* Header */
             #hcqm-hdr {
                 background: #161b22;
-                padding: 10px 14px;
+                padding: 12px 14px;
                 border-bottom: 1px solid #30363d;
                 display: flex; align-items: center; gap: 8px;
                 flex-shrink: 0;
+                min-height: 52px;
             }
             #hcqm-close {
-                width: 36px; height: 36px;
+                width: 44px; height: 44px;
                 background: #21262d; border-radius: 50%;
                 display: flex; align-items: center; justify-content: center;
-                font-size: 16px; color: #8b949e; cursor: pointer;
+                font-size: 20px; color: #8b949e; cursor: pointer;
                 touch-action: manipulation; -webkit-tap-highlight-color: transparent;
                 flex-shrink: 0; margin-left: auto;
             }
@@ -373,10 +377,11 @@
                 border-bottom: 1px solid #30363d; flex-shrink: 0;
             }
             .hcqm-tab {
-                padding: 10px 18px; cursor: pointer; user-select: none;
-                font-size: 12px; touch-action: manipulation;
+                padding: 14px 18px; cursor: pointer; user-select: none;
+                font-size: 13px; touch-action: manipulation;
                 -webkit-tap-highlight-color: transparent;
-                flex: 1; text-align: center;
+                flex: 1; text-align: center; min-height: 48px;
+                display: flex; align-items: center; justify-content: center;
             }
 
             /* Hier bar */
@@ -388,15 +393,20 @@
             }
             .hcqm-hbtn {
                 display: inline-flex; align-items: center; gap: 4px;
-                padding: 5px 12px; border-radius: 20px; cursor: pointer;
-                font-size: 12px; font-weight: 700; user-select: none;
+                padding: 8px 14px; border-radius: 20px; cursor: pointer;
+                font-size: 13px; font-weight: 700; user-select: none;
                 touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+                min-height: 40px;
             }
 
             /* Body */
             #hcqm-body {
-                overflow-y: auto; flex: 1; padding: 10px;
+                overflow-y: scroll;
                 -webkit-overflow-scrolling: touch;
+                flex: 1;
+                min-height: 0;
+                padding: 10px;
+                overscroll-behavior: contain;
             }
 
             /* Quest cards */
@@ -412,10 +422,11 @@
             .hcqm-gobtn {
                 background: #21262d; color: #58a6ff;
                 border: 1px solid #30363d; border-radius: 8px;
-                padding: 6px 14px; cursor: pointer; font-size: 12px;
+                padding: 10px 16px; cursor: pointer; font-size: 13px;
                 font-family: Consolas,monospace; white-space: nowrap;
                 flex-shrink: 0; touch-action: manipulation;
                 -webkit-tap-highlight-color: transparent;
+                min-height: 44px; display: flex; align-items: center;
             }
             .hcqm-cats { display: flex; gap: 5px; margin-bottom: 10px; }
             .hcqm-cat {
@@ -436,10 +447,11 @@
             .hcqm-toggle-label { color: #c9d1d9; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
             .hcqm-toggle-desc { color: #8b949e; font-size: 11px; line-height: 1.5; }
             .hcqm-toggle-btn {
-                border-radius: 20px; padding: 8px 16px;
-                cursor: pointer; font-size: 12px; font-weight: 700;
+                border-radius: 20px; padding: 12px 20px;
+                cursor: pointer; font-size: 14px; font-weight: 700;
                 white-space: nowrap; flex-shrink: 0; user-select: none;
                 touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+                min-height: 48px; display: flex; align-items: center;
             }
 
             /* Empty state */
@@ -457,7 +469,12 @@
         fab.id = 'hcqm-fab';
         fab.textContent = '⚡';
         fab.addEventListener('click', togglePanel);
-        document.documentElement.appendChild(fab);
+        fab.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            togglePanel();
+        });
+        (document.body || document.documentElement).appendChild(fab);
 
         // ── Panel ──
         panel = document.createElement('div');
@@ -481,7 +498,7 @@
             <div id="hcqm-hier"></div>
             <div id="hcqm-body"></div>
         `;
-        document.documentElement.appendChild(panel);
+        (document.body || document.documentElement).appendChild(panel);
 
         // refs
         bodyEl   = panel.querySelector('#hcqm-body');
@@ -706,10 +723,15 @@
 
     function init() {
         buildUI();
+        // Toast potwierdzający że skrypt działa — zniknie po 3s
+        setTimeout(() => toast('⚡ HCQ Toppings załadowany!'), 500);
     }
 
-    document.readyState === 'loading'
-        ? document.addEventListener('DOMContentLoaded', init)
-        : init();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        // Małe opóźnienie dla mobile — upewnij się że body istnieje
+        setTimeout(init, 100);
+    }
 
 })();
