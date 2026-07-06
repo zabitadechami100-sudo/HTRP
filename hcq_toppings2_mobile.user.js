@@ -280,6 +280,25 @@
     }
 
     // =========================================================
+    //  TAP HELPER — touchend + click fallback dla mobile
+    // =========================================================
+
+    function onTap(el, fn) {
+        let moved = false;
+        el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
+        el.addEventListener('touchmove',  () => { moved = true;  }, { passive: true });
+        el.addEventListener('touchend', e => {
+            if (moved) return;
+            e.preventDefault();
+            e.stopPropagation();
+            fn(e);
+        });
+        el.addEventListener('click', e => {
+            fn(e);
+        });
+    }
+
+    // =========================================================
     //  UI
     // =========================================================
 
@@ -468,12 +487,7 @@
         const fab = document.createElement('div');
         fab.id = 'hcqm-fab';
         fab.textContent = '⚡';
-        fab.addEventListener('click', togglePanel);
-        fab.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            togglePanel();
-        });
+        onTap(fab, togglePanel);
         (document.body || document.documentElement).appendChild(fab);
 
         // ── Panel ──
@@ -507,34 +521,44 @@
         hierEl   = panel.querySelector('#hcqm-hier');
 
         // close
-        panel.querySelector('#hcqm-close').addEventListener('click', e => {
-            e.stopPropagation();
+        onTap(panel.querySelector('#hcqm-close'), () => {
             panelOpen = false;
             panel.classList.remove('open');
         });
 
         // lang
         panel.querySelectorAll('.hcqm-lb').forEach(lb => {
-            lb.addEventListener('click', () => switchLang(lb.dataset.l));
+            onTap(lb, () => switchLang(lb.dataset.l));
         });
 
         // tabs
         panel.querySelectorAll('.hcqm-tab').forEach(tb => {
             tabBtns[tb.dataset.tab] = tb;
-            tb.addEventListener('click', () => switchTab(tb.dataset.tab));
+            onTap(tb, () => switchTab(tb.dataset.tab));
         });
 
-        // go buttons + hier buttons (delegacja)
-        bodyEl.addEventListener('click', e => {
+        // go buttons + hier buttons (delegacja — touch + click)
+        function delegateBodyTap(e) {
             const gb = e.target.closest('.hcqm-go');
             if (gb) { goToStage(parseInt(gb.dataset.stage)); return; }
             const hb = e.target.closest('.hcqm-hbtn');
             if (hb) shiftHier(hb.dataset.cat);
-        });
-        hierEl.addEventListener('click', e => {
+        }
+        let bodyMoved = false;
+        bodyEl.addEventListener('touchstart', () => { bodyMoved = false; }, { passive: true });
+        bodyEl.addEventListener('touchmove',  () => { bodyMoved = true;  }, { passive: true });
+        bodyEl.addEventListener('touchend', e => { if (!bodyMoved) { e.preventDefault(); delegateBodyTap(e); } });
+        bodyEl.addEventListener('click', delegateBodyTap);
+
+        function delegateHierTap(e) {
             const hb = e.target.closest('.hcqm-hbtn');
             if (hb) shiftHier(hb.dataset.cat);
-        });
+        }
+        let hierMoved = false;
+        hierEl.addEventListener('touchstart', () => { hierMoved = false; }, { passive: true });
+        hierEl.addEventListener('touchmove',  () => { hierMoved = true;  }, { passive: true });
+        hierEl.addEventListener('touchend', e => { if (!hierMoved) { e.preventDefault(); delegateHierTap(e); } });
+        hierEl.addEventListener('click', delegateHierTap);
 
         updateLangBtns();
         buildHierBar();
@@ -711,7 +735,7 @@
                 </div>
             </div>
         `;
-        bodyEl.querySelector('#hcqm-sell-btn').addEventListener('click', () => {
+        onTap(bodyEl.querySelector('#hcqm-sell-btn'), () => {
             cfg.autoSell = !cfg.autoSell;
             saveCfg(); renderAutoTab();
         });
