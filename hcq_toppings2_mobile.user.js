@@ -349,7 +349,7 @@
                 display: none;
                 flex-direction: column;
                 font-family: Consolas,"Courier New",monospace;
-                font-size: 13px;
+                font-size: 11px;
                 box-shadow: none;
                 overflow: hidden;
             }
@@ -358,11 +358,11 @@
             /* Header */
             #hcqm-hdr {
                 background: #161b22;
-                padding: 12px 14px;
+                padding: 8px 10px;
                 border-bottom: 1px solid #30363d;
-                display: flex; align-items: center; gap: 8px;
+                display: flex; align-items: center; gap: 6px;
                 flex-shrink: 0;
-                min-height: 52px;
+                min-height: 42px;
             }
             #hcqm-close {
                 width: 44px; height: 44px;
@@ -383,11 +383,11 @@
 
             /* Char bar */
             #hcqm-char {
-                background: #161b22; padding: 7px 14px;
+                background: #161b22; padding: 5px 10px;
                 border-bottom: 1px solid #30363d;
-                display: flex; gap: 8px; align-items: center;
-                color: #8b949e; font-size: 12px; flex-shrink: 0;
-                flex-wrap: wrap; min-height: 34px;
+                display: flex; gap: 6px; align-items: center;
+                color: #8b949e; font-size: 11px; flex-shrink: 0;
+                flex-wrap: nowrap; overflow: hidden; min-height: 30px;
             }
 
             /* Tabs */
@@ -396,26 +396,26 @@
                 border-bottom: 1px solid #30363d; flex-shrink: 0;
             }
             .hcqm-tab {
-                padding: 14px 18px; cursor: pointer; user-select: none;
-                font-size: 13px; touch-action: manipulation;
+                padding: 10px 12px; cursor: pointer; user-select: none;
+                font-size: 12px; touch-action: manipulation;
                 -webkit-tap-highlight-color: transparent;
-                flex: 1; text-align: center; min-height: 48px;
+                flex: 1; text-align: center; min-height: 40px;
                 display: flex; align-items: center; justify-content: center;
             }
 
             /* Hier bar */
             #hcqm-hier {
-                background: #161b22; padding: 8px 14px;
+                background: #161b22; padding: 5px 10px;
                 border-bottom: 1px solid #30363d;
-                display: flex; align-items: center; gap: 6px;
+                display: flex; align-items: center; gap: 4px;
                 flex-shrink: 0; flex-wrap: wrap;
             }
             .hcqm-hbtn {
-                display: inline-flex; align-items: center; gap: 4px;
-                padding: 8px 14px; border-radius: 20px; cursor: pointer;
-                font-size: 13px; font-weight: 700; user-select: none;
+                display: inline-flex; align-items: center; gap: 3px;
+                padding: 5px 10px; border-radius: 20px; cursor: pointer;
+                font-size: 11px; font-weight: 700; user-select: none;
                 touch-action: manipulation; -webkit-tap-highlight-color: transparent;
-                min-height: 40px;
+                min-height: 34px;
             }
 
             /* Body */
@@ -431,31 +431,31 @@
             /* Quest cards */
             .hcqm-card {
                 background: #161b22; border: 1px solid #30363d;
-                border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+                border-radius: 8px; padding: 7px 9px; margin-bottom: 5px;
             }
             .hcqm-card.top { background: #e3b34110; border-color: #e3b341; }
-            .hcqm-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
-            .hcqm-stage-badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 700; white-space: nowrap; }
-            .hcqm-ident { color: #8b949e; font-size: 11px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-            .hcqm-primary { font-weight: 700; font-size: 15px; white-space: nowrap; }
+            .hcqm-card-top { display: flex; align-items: center; gap: 5px; margin-bottom: 6px; flex-wrap: wrap; }
+            .hcqm-stage-badge { font-size: 9px; padding: 2px 7px; border-radius: 20px; font-weight: 700; white-space: nowrap; }
+            .hcqm-ident { color: #8b949e; font-size: 10px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+            .hcqm-primary { font-weight: 700; font-size: 12px; white-space: nowrap; }
             .hcqm-gobtn {
                 background: #21262d; color: #58a6ff;
-                border: 1px solid #30363d; border-radius: 8px;
-                padding: 10px 16px; cursor: pointer; font-size: 13px;
+                border: 1px solid #30363d; border-radius: 6px;
+                padding: 6px 10px; cursor: pointer; font-size: 11px;
                 font-family: Consolas,monospace; white-space: nowrap;
                 flex-shrink: 0; touch-action: manipulation;
                 -webkit-tap-highlight-color: transparent;
-                min-height: 44px; display: flex; align-items: center;
+                min-height: 36px; display: flex; align-items: center;
             }
-            .hcqm-cats { display: flex; gap: 5px; margin-bottom: 10px; }
+            .hcqm-cats { display: flex; gap: 3px; margin-bottom: 6px; }
             .hcqm-cat {
-                border-radius: 8px; padding: 6px 8px;
+                border-radius: 6px; padding: 4px 5px;
                 text-align: center; flex: 1; min-width: 0;
             }
-            .hcqm-cat-icon { font-size: 9px; color: #8b949e; margin-bottom: 2px; }
-            .hcqm-cat-val { font-weight: 700; font-size: 14px; }
-            .hcqm-cat-per { font-size: 10px; color: #3fb950; }
-            .hcqm-meta { font-size: 11px; color: #8b949e; }
+            .hcqm-cat-icon { font-size: 8px; color: #8b949e; margin-bottom: 1px; }
+            .hcqm-cat-val { font-weight: 700; font-size: 11px; }
+            .hcqm-cat-per { font-size: 9px; color: #3fb950; }
+            .hcqm-meta { font-size: 10px; color: #8b949e; }
 
             /* Auto tab */
             .hcqm-toggle-row {
@@ -644,13 +644,13 @@
         if (!charEl || !st.char.name) return;
         const pct = Math.round((st.char.energy / Math.max(st.char.maxEnergy, 1)) * 100);
         charEl.innerHTML = `
-            <span style="color:${C.blue};font-weight:700">${st.char.name}</span>
-            <span style="background:${C.bg3};padding:3px 9px;border-radius:20px;color:${C.yellow}">Lvl ${st.char.level}</span>
-            <span style="position:relative;background:${C.bg3};border-radius:20px;padding:3px 12px;overflow:hidden;min-width:140px">
+            <span style="color:${C.blue};font-weight:700;font-size:11px;white-space:nowrap">${st.char.name}</span>
+            <span style="background:${C.bg3};padding:2px 6px;border-radius:10px;color:${C.yellow};font-size:10px;white-space:nowrap">Lvl ${st.char.level}</span>
+            <span style="position:relative;background:${C.bg3};border-radius:10px;padding:2px 8px;overflow:hidden;font-size:10px;white-space:nowrap">
                 ⚡ ${st.char.energy}/${st.char.maxEnergy}
-                <span style="position:absolute;left:0;top:0;height:100%;width:${pct}%;background:${C.green}33;border-radius:20px"></span>
+                <span style="position:absolute;left:0;top:0;height:100%;width:${pct}%;background:${C.green}33;border-radius:10px"></span>
             </span>
-            <span style="margin-left:auto;color:${C.fg2};font-size:11px">📋 ${allQ().length} ${T().quests}</span>`;
+            <span style="margin-left:auto;color:${C.fg2};font-size:10px;white-space:nowrap">📋 ${allQ().length}</span>`;
     }
 
     function renderStatus() {
@@ -707,7 +707,7 @@
 
             return `<div class="hcqm-card ${isTop?'top':''}">
                 <div class="hcqm-card-top">
-                    <span style="font-size:${i<3?'18':'13'}px;min-width:20px">${medal}</span>
+                    <span style="font-size:${i<3?'14':'11'}px;min-width:16px">${medal}</span>
                     <span class="hcqm-stage-badge" style="background:${sc}22;color:${sc};border:1px solid ${sc}44">${T().stage} ${q.stage}</span>
                     <span class="hcqm-ident">${q.identifier}</span>
                     <span class="hcqm-primary" style="color:${info.color}">${primaryVal}${T().perE}</span>
