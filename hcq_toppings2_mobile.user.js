@@ -352,6 +352,7 @@
                 font-size: 11px;
                 box-shadow: none;
                 overflow: hidden;
+                touch-action: none;
             }
             #hcqm-panel.open { display: flex; }
 
@@ -420,12 +421,15 @@
 
             /* Body */
             #hcqm-body {
-                overflow-y: scroll;
-                -webkit-overflow-scrolling: touch;
-                flex: 1;
-                min-height: 0;
+                overflow-y: scroll !important;
+                -webkit-overflow-scrolling: touch !important;
+                flex: 1 1 0%;
+                min-height: 0 !important;
+                max-height: 100% !important;
                 padding: 10px;
                 overscroll-behavior: contain;
+                touch-action: pan-y !important;
+                will-change: scroll-position;
             }
 
             /* Quest cards */
@@ -564,6 +568,24 @@
         buildHierBar();
         switchTab('quests');
         renderEmpty();
+
+        // ── Natywny scroll palcem na liście misji ──
+        let scrollStartY = 0, scrollStartTop = 0, isScrolling = false;
+        bodyEl.addEventListener('touchstart', e => {
+            if (e.touches.length !== 1) return;
+            scrollStartY   = e.touches[0].clientY;
+            scrollStartTop = bodyEl.scrollTop;
+            isScrolling    = false;
+        }, { passive: true });
+        bodyEl.addEventListener('touchmove', e => {
+            if (e.touches.length !== 1) return;
+            const dy = scrollStartY - e.touches[0].clientY;
+            if (Math.abs(dy) > 5) isScrolling = true;
+            if (isScrolling) {
+                bodyEl.scrollTop = scrollStartTop + dy;
+                e.preventDefault();
+            }
+        }, { passive: false });
     }
 
     // ── Panel toggle ─────────────────────────────────────────
